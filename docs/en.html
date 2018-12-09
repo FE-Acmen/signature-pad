@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
+
+<head >
+    <title>图片缩放和固定div层拖动</title>
+    <style type="text/css">
+      #picDiv
+        {
+        margin:8px 8px 4px 0;
+        border:1px solid #666666;
+        padding:0;
+        width:120px;
+        height:120px;
+        float:left;
+        overflow:hidden;
+        position:relative;
+        cursor:move;
+        }
+
+     .dragAble
+        {
+            position: absolute;
+            cursor: move;
+        }
+    </style>
+
+    <script language="javascript" type="text/javascript">
+        //图片放大和缩小（兼容IE和火狐，谷歌）
+        function ImageChange(args) {
+            var oImg = document.getElementById("pic");
+            if (args) {
+                oImg.width = oImg.width * 1.2;
+                oImg.height = oImg.height * 1.2;
+               // oImg.style.zoom = parseInt(oImg.style.zoom) + (args ? +20 : -20) + '%';
+            }
+            else {
+                oImg.width = oImg.width / 1.2;
+                oImg.height = oImg.height / 1.2;
+            }
+        }
+
+
+
+        //获取div的四个顶点坐标
+           function getDivPosition()
+           {
+           var odiv=document.getElementById('picDiv');
+         //  alert(odiv.getBoundingClientRect().left);
+         // alert(odiv.getBoundingClientRect().top);
+                   
+           var xLeft,xRigh,yTop,yBottom;
+           return {
+                xLeft:odiv.getBoundingClientRect().left,
+                xRigh:odiv.getBoundingClientRect().left+130, 
+                yTop:odiv.getBoundingClientRect().top,
+                yBottom:odiv.getBoundingClientRect().top+130
+                };
+           }
+
+         //获取鼠标坐标
+           function mousePos(e)
+           {
+                var x,y;
+                var e = e||window.event;
+                return {
+                x:e.clientX+document.body.scrollLeft+document.documentElement.scrollLeft,
+                y:e.clientY+document.body.scrollTop+document.documentElement.scrollTop
+                };
+            };
+
+        //在固定div层拖动图片
+        var ie = document.all;
+        var nn6 = document.getElementById && !document.all;
+        var isdrag = false;
+        var y, x;
+        var oDragObj;
+
+        
+        //鼠标移动
+        function moveMouse(e) {     
+                //鼠标的坐标
+                mousePos(e).x   ;
+                mousePos(e).y  ;
+                //div的四个顶点坐标
+                getDivPosition().xLeft
+                getDivPosition().xRigh
+                getDivPosition().yTop
+                getDivPosition().yBottom
+                
+            if(isdrag && mousePos(e).x > getDivPosition().xLeft &&  mousePos(e).x < getDivPosition().xRigh  &&  mousePos(e).y >getDivPosition().yTop && mousePos(e).y< getDivPosition().yBottom )
+            {
+                oDragObj.style.top = (nn6 ? nTY + e.clientY - y : nTY + event.clientY - y) + "px";
+                oDragObj.style.left = (nn6 ? nTX + e.clientX - x : nTX + event.clientX - x) + "px";
+                return false;
+            }
+        }
+
+        //鼠标按下才初始化
+        function initDrag(e) {
+            var oDragHandle = nn6 ? e.target : event.srcElement;
+            var topElement = "HTML";
+            while (oDragHandle.tagName != topElement && oDragHandle.className != "dragAble") {
+                oDragHandle = nn6 ? oDragHandle.parentNode : oDragHandle.parentElement;
+            }
+            if (oDragHandle.className == "dragAble") {
+                isdrag = true;
+                oDragObj = oDragHandle;
+                nTY = parseInt(oDragObj.style.top + 0);
+                y = nn6 ? e.clientY : event.clientY;
+                nTX = parseInt(oDragObj.style.left + 0);
+                x = nn6 ? e.clientX : event.clientX;
+                document.onmousemove = moveMouse;
+                return false;
+            }
+        }
+        document.onmousedown = initDrag;
+        document.onmouseup = new Function("isdrag=false");
+
+     </script>
+
+</head>
+<body>
+    <div id="picDiv" >
+        <img id="pic"  class="dragAble" alt="头像" src="img/02.png" />
+        <br />
+    </div>
+
+     <input id="btn1" type="button" value="放大" onclick="ImageChange(true)" />
+     <input id="btn2" type="button" value="缩小" onclick="ImageChange(false)" />
+    <!--  <input id="btn3" type="button" value="div的坐标" onclick="getDivPosition()" />  -->
+</body>
+</html>

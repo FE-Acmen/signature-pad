@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Signature Pad demo</title>
+  <meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="selectDemo">
+    <div class="selectBox">
+        <label class="selectBtn">
+            请选择图片或者pdf
+            <input type="file" multiple accept="image/*, .pdf" class="selectIpt"/>
+        </label>
+    </div>
+    <div class="previewBox">
+        <div class="previewList"></div>
+    </div>
+</div>
+
+  <script>
+    const $ = (el) => document.querySelector(el);
+$('.selectIpt').addEventListener('change', handleFiles);
+function handleFiles () {
+    const files = this.files;
+    for (let i = 0, len = files.length; i < len; i ++) {
+        showFilePreview(files[i]);
+    }
+}
+function showFilePreview (file) {
+    const fileType = file.type;
+    if (!fileType) {
+        return;
+    }
+    if (/^image/.test(fileType)) {
+        return handleImageFile(file);
+    }
+    if (fileType === 'application/pdf') {
+        return handlePdfFile(file);
+    }
+}
+function handleImageFile (file) {
+    // 使用FileReader来处理
+    const reader = new FileReader ();
+    reader.addEventListener ('load', (e) => {
+        const imgUrl = e.target.result;
+        let imgNode = document.createElement('img');
+        imgNode.src = imgUrl;
+        imgNode.setAttribute('height', '200px');
+        createPreviewItem(imgNode);
+    });
+    reader.readAsDataURL(file);
+}
+function handlePdfFile (file) {
+    // 使用URL来处理
+    const URL = window.URL || window.webkitURL;
+    const pdfUrl = URL.createObjectURL(file);
+    let embedNode = document.createElement('embed');
+    embedNode.src = pdfUrl;
+     embedNode.setAttribute('height', '500px');
+    embedNode.setAttribute('width', '100%');
+    console.log(embedNode);
+    createPreviewItem(embedNode);
+}
+function createPreviewItem (newNode) {
+    let newLi = document.createElement('div');
+    newLi.appendChild(newNode);
+    $('.previewList').appendChild(newLi);
+}
+  </script>
+</body>
+</html>

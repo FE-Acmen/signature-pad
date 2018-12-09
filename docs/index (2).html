@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style type="text/css">
+  	#aImg {
+  		cursor: move;
+	   max-height: 100px;
+	   max-width: 200px;
+	   position: absolute;
+  	}
+  </style>
+</head>
+<body>
+ <input type="file" id="file">
+ <button onclick="matting()">开始抠图</button>
+ <div id="aImg">
+ </div>
+</body>
+<script src="./dist/matting.js"></script>
+<script>
+  function matting() {
+    var file = document.getElementById('file').files[0];
+    var mat = new Matting(file);
+    mat.createStream();
+  }
+  window.onload = function() {
+    var oDiv = document.getElementById('aImg');
+    oDiv.onmousedown = function(ev) {
+        var ev = ev || event; 
+        // 1、Event 对象代表事件的状态
+        // 2、ie6\7\8下获取不到ev
+
+        var disX = ev.clientX - this.offsetLeft;
+        var disY = ev.clientY - this.offsetTop;
+        // 获取鼠标点击时在div中的相对位置
+
+        if (oDiv.setCapture) {oDiv.setCapture();}
+        // 文字选中bug：ie下，设置全局捕获
+
+        document.onmousemove = function(ev) {
+            var ev = ev || event;
+            oDiv.style.left = ev.clientX - disX + 'px';
+            oDiv.style.top = ev.clientY - disY + 'px';
+        };
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            // 获取当前鼠标位置，
+            // 减去与div的相对位置得到当前div应该被拖拽的位置
+
+            if (oDiv.releaseCapture) {oDiv.releaseCapture();}
+            // 文字选中bug：ie下，释放全局捕获
+        };
+        return false;
+        // 文字选中bug：标准下，阻止事件默认行为
+    };
+}
+</script>
+</html>

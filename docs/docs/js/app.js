@@ -5,7 +5,6 @@ var undoButton = wrapper.querySelector("[data-action=undo]");
 var savePNGButton = wrapper.querySelector("[data-action=save-png]");
 var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
 var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
-var submitButton = wrapper.querySelector("[data-action=submit]");
 var canvas = wrapper.querySelector("canvas");
 var signaturePad = new SignaturePad(canvas, {
   // It's Necessary to use an opaque color when saving image as JPEG;
@@ -76,7 +75,6 @@ function dataURLToBlob(dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
-
 clearButton.addEventListener("click", function (event) {
   signaturePad.clear();
 });
@@ -97,18 +95,6 @@ changeColorButton.addEventListener("click", function (event) {
   var color = "rgb(" + r + "," + g + "," + b +")";
 
   signaturePad.penColor = color;
-});
-
-submitButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var canvas = document.getElementById("canvas");
-    var image = document.getElementById("imgSignature");
-    // var image = document.createElement("img");
-    image.src = canvas.toDataURL("image/jpeg",0.7);
-    // document.getElementById("mycanvas").appendChild(image);
-  }
 });
 
 savePNGButton.addEventListener("click", function (event) {
