@@ -71,7 +71,8 @@
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+                '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(ga, s);
         })();
@@ -98,8 +99,8 @@
                     < 10Mb</div>
                         <div class="actions">
                             <a href="javascript:;" class="btn file">选择文件
-                  <input id='pdf' type='file' accept="application/pdf">
-                </a>
+                            <input id='pdf' type='file' accept="application/pdf">
+                        </a>
                             <button class="btn" id="downloadPdf">导出pdf</button>
 
                             <button class="btn">合成</button>
@@ -199,9 +200,9 @@
   <script src="luck/luck.js"></script>-->
         <script>
             /*function luck5() {
-                luck.iframe("luck-pc", "index.html", 750, 500);
-                _hmt.push([ "_trackEvent", "luck-pc-iframe", "click" ]);
-                }*/
+                            luck.iframe("luck-pc", "index.html", 750, 500);
+                            _hmt.push([ "_trackEvent", "luck-pc-iframe", "click" ]);
+                            }*/
             (function() {
                 var modalBox = {};
                 //modalBox.pad = document.getElementById("signature");
