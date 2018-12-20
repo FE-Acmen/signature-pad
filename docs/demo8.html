@@ -150,14 +150,16 @@
     <footer>write by linwalker @2017</footer>
     <script type="text/javascript" src="js/html2canvas.js"></script>
     <script type="text/javascript" src="js/jsPdf.debug.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript">
 
       var downPdf = document.getElementById("renderPdf");
 
       downPdf.onclick = function() {
           html2canvas(document.body, {
+            allowTaint: true,
               onrendered:function(canvas) {
-
+                
                   var contentWidth = canvas.width;
                   var contentHeight = canvas.height;
 

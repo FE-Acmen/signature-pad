@@ -1,201 +1,258 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Signature Pad demo</title>
-  <meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
+    <meta charset="utf-8">
+    <title>Signature Pad demo</title>
+    <meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/mian.css" />
-  <link rel="stylesheet" href="css/signature-pad.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <!--[if IE]>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/mian.css" />
+    <link rel="stylesheet" href="css/signature-pad.css">
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+    <!--[if IE]>
     <link rel="stylesheet" type="text/css" href="css/ie9.css">
   <![endif]-->
+    <style type="text/css">
+        .Obox {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            padding-top: 20px;
+            background-color: #a9a9a9;
+            border-radius: 20%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .Obox:hover {
+            background: #70d41c;
+        }
+        
+        .Obox:hover .box-in {
+            visibility: hidden;
+        }
+        /*.Obox:before{
+    background: #a1da88;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    content:'回到顶部';
+    width: 40px;
+    color:peru;
+    font-weight:bold;
 
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-39365077-1']);
-    _gaq.push(['_trackPageview']);
+  }*/
+        
+        .Obox-in {
+            visibility: visible;
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            border: 3px solid black;
+            border-color: white transparent transparent white;
+            transform: rotate(45deg);
+        }
+    </style>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-39365077-1']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </head>
+
 <body ondragstart="return true;" oncontextmenu="return true;">
-  <!--<a id="github" style="position: absolute; top: 0; right: 0; border: 0" href="https://github.com/szimek/signature_pad">
+    <!--<a id="github" style="position: absolute; top: 0; right: 0; border: 0" href="https://github.com/szimek/signature_pad">
     <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Chat me on Google">
   </a>-->
-  
-  <div id="Frame" class="frame">
-      <div class="center">
-        <div class="profile">
-          <a href="https://smartworkplace.apps.valeo.com/home/" target="_blank">
-            <div class="image">
-              <div class="circle-1"></div>
-              <div class="circle-2"></div>
-              <img src="img/02.png" width="70" height="70" alt="">
-            </div>
-          </a>
-          <div class="name">上传PDF</div>
-          <div class="job">文档大小
-            < 10Mb</div>
-              <div class="actions">
-                <a href="javascript:;" class="btn file">选择文件
+    <!-- <a href="javascript:;" id="Obtn" title="回到顶部"></a>  -->
+    <div id="Frame" class="frame">
+        <div class="center">
+            <div class="profile">
+                <a href="https://smartworkplace.apps.valeo.com/home/" target="_blank">
+                    <div class="image">
+                        <div class="circle-1"></div>
+                        <div class="circle-2"></div>
+                        <img src="img/02.png" width="70" height="70" alt="">
+                    </div>
+                </a>
+                <div class="name">上传PDF</div>
+                <div class="job">文档大小
+                    < 10Mb</div>
+                        <div class="actions">
+                            <a href="javascript:;" class="btn file">选择文件
                   <input id='pdf' type='file' accept="application/pdf">
                 </a>
-                <button class="btn" id="downloadPdf">导出pdf</button>
-                
-                  <button class="btn">合成</button>
-                
-              </div>
-          </div>
+                            <button class="btn" id="downloadPdf">导出pdf</button>
 
-          <div class="stats">
-            <div class="box">
-              <span class="value">名称</span>
-              <span class="parameter" id="pdfName"></span>
+                            <button class="btn">合成</button>
+
+                        </div>
+                </div>
+
+                <div class="stats">
+                    <div class="box">
+                        <span class="value">名称</span>
+                        <span class="parameter" id="pdfName"></span>
+                    </div>
+                    <div class="box">
+                        <span class="value">大小</span>
+                        <span class="parameter" id="sizeText"></span>
+                    </div>
+                    <div class="box">
+                        <span class="value">页数</span>
+                        <span class="parameter" id="pagesText"></span>
+                    </div>
+                </div>
             </div>
-            <div class="box">
-              <span class="value">大小</span>
-              <span class="parameter" id="sizeText"></span>
+        </div>
+
+        <div id="picDiv" class="dragAble">
+            <div id="screen" style="background-color:#fff">
+                <div id="imgDiv">
+                </div>
+                <img id="imgSignature" class="signature-img" src="" />
             </div>
-            <div class="box">
-              <span class="value">页数</span>
-              <span class="parameter" id="pagesText"></span>
+            <div class="signature-Div">
+                <input type="file" id="file">
+                <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
+                <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
+                <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
+                <br>
+
+
+                <!-- <canvas id="mycanvas" width="200px" height="100px" style="position: absolute"></canvas> -->
+                <!-- <div id="div1"></div> -->
             </div>
-          </div>
         </div>
-      </div>
 
-  <div id="picDiv" class="dragAble">
-      <div id="imgDiv">
-      </div>
-
-      <div class="signature-Div">
-      <input type="file" id="file">
-      <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
-      <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
-      <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
-      <br>
-      
-      <img id="imgSignature"  class="signature-img" src="" />
-      <!-- <canvas id="mycanvas" width="200px" height="100px" style="position: absolute"></canvas> -->
-      <!-- <div id="div1"></div> -->
-      </div> 
-  </div>
-
-  <!--截图导出PDF-->
-  <div id="signature"class="signature-layout" style="background-color:#fff"> 
-      <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
-      <br>  
-  </div>
-  
-
-  <div id="myModal"class="modal">
-  <div id="signature-pad" class="signature-pad">
-    <div class="signature-pad--body">
-      <canvas id="canvas"></canvas>
-    </div>
-    <div class="signature-pad--footer">
-      <div class="description">Sign above</div>
-
-      <div class="signature-pad--actions">
-        <div>
-          <button type="button" class="button clear" data-action="clear">Clear</button>
-          <button type="button" class="button" data-action="change-color">Change color</button>
-          <button type="button" class="button" data-action="undo">Undo</button>
-
+        <!-- <a href="javascript:void(0);" id="Obtn" onclick="box()" title="回到顶部"></a>  -->
+        <!--截图导出PDF-->
+        <div id="signature" class="signature-layout" style="background-color:#fff">
+            <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
+            <br>
         </div>
-        <div>
-          <button type="button" id="closeBtn"class="close" data-action="submit">Submit</button>
-          <button type="button" class="button save" data-action="save-png">Save as PNG</button>
-          <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
-          <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
+        <div id="Obox" class="Obox" title="返回顶部">
+            <div class="Obox-in"></div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-  <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdn.bootcss.com/jspdf/1.4.1/jspdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-  <script src="js/signature_pad.umd.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/downloadPdf.js"></script>
-  <script src="js/jquery-2.1.4.min.js"></script>
-  <script src="js/FileSaver.js"></script>
-  <script src="js/pdf.js"></script>
-  <script src="js/pdf.worker.js"></script>
-  <script src="jQuery/jquery-1.6.2.js"></script>
-  <script src="./dist/matting.js"></script>
-  <script src="js/mylib.js"></script>
-  <script src="js/drag.js"></script>
-  <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
+        <!-- <footer>write by Young @2018</footer> -->
+        <div id="myModal" class="modal">
+            <div id="signature-pad" class="signature-pad">
+                <div class="signature-pad--body">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="signature-pad--footer">
+                    <div class="description">Sign above</div>
+
+                    <div class="signature-pad--actions">
+                        <div>
+                            <button type="button" class="button clear" data-action="clear">Clear</button>
+                            <button type="button" class="button" data-action="change-color">Change color</button>
+                            <button type="button" class="button" data-action="undo">Undo</button>
+
+                        </div>
+                        <div>
+                            <button type="button" id="closeBtn" class="close" data-action="submit">Submit</button>
+                            <button type="button" class="button save" data-action="save-png">Save as PNG</button>
+                            <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
+                            <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
+        <!-- <script src="https://cdn.bootcss.com/jspdf/1.4.1/jspdf.min.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
+        <script src="js/signature_pad.umd.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/downloadPdf.js"></script>
+        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="js/FileSaver.js"></script>
+        <script src="js/pdf.js"></script>
+        <script src="js/pdf.worker.js"></script>
+        <script src="js/jquery-3.3.1.js"></script>
+        <script src="dist/matting.js"></script>
+        <script src="js/mylib.js"></script>
+        <script src="js/drag.js"></script>
+        <script src="js/html2canvas.js"></script>
+        <script src="js/jsPdf.debug.js"></script>
+        <script src="js/returnTop.js"></script>
+        <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
   <script src="luck/luck.js"></script>-->
-  <script>
-    /*function luck5() {
-    luck.iframe("luck-pc", "index.html", 750, 500);
-    _hmt.push([ "_trackEvent", "luck-pc-iframe", "click" ]);
-    }*/
-    (function() {
-    var modalBox = {};
-    //modalBox.pad = document.getElementById("signature");
-    modalBox.modal = document.getElementById("myModal");
-    modalBox.triggerBtn = document.getElementById("triggerBtn");
-    modalBox.closeBtn = document.getElementById("closeBtn");
-    modalBox.modal.style.display = "none";
-    modalBox.show = function() {
-        console.log(this.modal);
-        this.modal.style.display = "block";
-        //this.pad.style.display = "none";
-    }
-    
-    modalBox.close = function() {
-        this.modal.style.display = "none";
-        //this.pad.style.display = "block";
-    }
-    
-    modalBox.outsideClick = function() {
-        var modal = this.modal;
-        var pad = this.pad;
-        window.onclick = function(event) {
-            if(event.target == modal) {
-                modal.style.display = "none";
-                //pad.style.display = "block";
-            }
-        }
-    }
-    
-    modalBox.init = function() {
-        var that = this;
-        this.triggerBtn.onclick = function() {
-            that.show();
-        }
-        this.closeBtn.onclick = function() {
-            that.close();
-        }
-        this.outsideClick();
-    }
-    modalBox.init();
- 
-})();
+        <script>
+            /*function luck5() {
+                luck.iframe("luck-pc", "index.html", 750, 500);
+                _hmt.push([ "_trackEvent", "luck-pc-iframe", "click" ]);
+                }*/
+            (function() {
+                var modalBox = {};
+                //modalBox.pad = document.getElementById("signature");
+                modalBox.modal = document.getElementById("myModal");
+                modalBox.triggerBtn = document.getElementById("triggerBtn");
+                modalBox.closeBtn = document.getElementById("closeBtn");
+                modalBox.modal.style.display = "none";
+                modalBox.show = function() {
+                    console.log(this.modal);
+                    this.modal.style.display = "block";
+                    //this.pad.style.display = "none";
+                }
 
-      
-      function matting() {
-    var file = document.getElementById('file').files[0];
-    var mat = new Matting(file);
-    mat.createStream();
-  }
-      //截图为PDF
-      /*window.onload = function() {
+                modalBox.close = function() {
+                    this.modal.style.display = "none";
+                    //this.pad.style.display = "block";
+                }
+
+                modalBox.outsideClick = function() {
+                    var modal = this.modal;
+                    var pad = this.pad;
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                            //pad.style.display = "block";
+                        }
+                    }
+                }
+
+                modalBox.init = function() {
+                    var that = this;
+                    this.triggerBtn.onclick = function() {
+                        that.show();
+                    }
+                    this.closeBtn.onclick = function() {
+                        that.close();
+                    }
+                    this.outsideClick();
+                }
+                modalBox.init();
+
+            })();
+
+
+            function matting() {
+                var file = document.getElementById('file').files[0];
+                var mat = new Matting(file);
+                mat.createStream();
+            }
+            //截图为PDF
+            /*window.onload = function() {
       var obj = createDraggableObject();
       obj.init($("img"));
       };
@@ -230,6 +287,7 @@
         // 文字选中bug：标准下，阻止事件默认行为
     };
 }*/
-</script>
+        </script>
 </body>
+
 </html>

@@ -17,6 +17,8 @@
    max-height: 100px;
    max-width: 200px;
    position: absolute;
+   z-index:-1;
+   height: auto;
    background-color: transparent;
    /*opacity:0.1;filter:alpha(opacity=50);*/
         }

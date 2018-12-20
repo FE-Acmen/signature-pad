@@ -88,18 +88,7 @@ class Matting {
         // 将修改后的代码复制回画布中
         ctx.putImageData(imgDataUrl, 0, 0);
         dataUrl = c.toDataURL("image/png");
-        // if (isPNG) {
-        //   /**
-        //    * 创建下载链接 进行图片下载
-        //    * @type {Element}
-        //    */
-        //   let a = document.createElement('a');
-        //   a.href = dataUrl; //下载图片
-        //   a.download = '未命名.png';
-        //   a.click();
-        // } else {
-        //   alert('背景已抠除！');
-        // }
+        
         if (isPNG) {
           let a = document.getElementById('imgSignature');
           a.src = dataUrl;

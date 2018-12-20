@@ -39,7 +39,7 @@
 
 #imgDiv {
 	margin: 0 auto;
-	width: 650px;
+	width: 600px;
 	min-height: 800px;
 	border: 1px solid #95d16d;
 	border-radius: 10px;
@@ -47,8 +47,13 @@
 }
 
 canvas {
-	width: 500px;
-	border-radius: 10px;
+	width: 600px;
+	border-radius: 0;
 	border: 0px solid #95d16d;
-	margin: 10px;
+	margin: 0px;
+}
+#screen{
+	width: 600px;
+	min-height: 800px;
+	margin: 0 auto;
 }

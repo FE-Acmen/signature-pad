@@ -130,12 +130,43 @@
  	border: 0px solid;
  	position: absolute;
 }
-#div1 {
-	cursor: move;
-   max-height: 100px;
-   max-width: 200px;
-   position: absolute;
+/*#content {
+
+	display: flex;
 }
+.tips{
+    position: fixed;
+    left: 0px;
+    top: -48px;
+    width: 100%;
+    font-size: 20px;
+    color: white;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #95d16d;
+    
+    transition: top 0.4s;
+}
+
+#active{
+
+    top: 0px;
+}*/
+/*#Obtn {
+	width:40px; 
+	height:40px; 
+	position:fixed; 
+	right:65px; 
+	bottom:10px; 
+	display:block;   	background:url(img/03.png) no-repeat left top; 
+	}
+#Obtn:hover {
+	background:url(img/03.png) no-repeat 0 -39px; 
+	}*/
+
+
 .stats {
 	float: left;
 }
