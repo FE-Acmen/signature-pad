@@ -10,23 +10,23 @@
         this.modal.style.display = "block";
         //this.pad.style.display = "none";
     }
-    
+
     modalBox.close = function() {
         this.modal.style.display = "none";
         //this.pad.style.display = "block";
     }
-    
+
     modalBox.outsideClick = function() {
         var modal = this.modal;
         var pad = this.pad;
         window.onclick = function(event) {
-            if(event.target == modal) {
+            if (event.target == modal) {
                 modal.style.display = "none";
                 //pad.style.display = "block";
             }
         }
     }
-    
+
     modalBox.init = function() {
         var that = this;
         this.triggerBtn.onclick = function() {
@@ -38,5 +38,5 @@
         this.outsideClick();
     }
     modalBox.init();
- 
+
 })();
