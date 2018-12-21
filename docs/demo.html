@@ -154,6 +154,7 @@
             <div class="Obox-in"></div>
         </div>
         <!-- <footer>write by Young @2018</footer> -->
+        <!-- <div id="signature" class="signature"> -->
         <div id="myModal" class="modal">
             <div id="signature-pad" class="signature-pad">
                 <div class="signature-pad--body">
@@ -179,6 +180,7 @@
                 </div>
             </div>
         </div>
+        <!-- </div> -->
         <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
         <!-- <script src="https://cdn.bootcss.com/jspdf/1.4.1/jspdf.min.js"></script> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
@@ -199,14 +201,10 @@
         <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
   <script src="luck/luck.js"></script>-->
         <script>
-            /*function luck5() {
-                            luck.iframe("luck-pc", "index.html", 750, 500);
-                            _hmt.push([ "_trackEvent", "luck-pc-iframe", "click" ]);
-                            }*/
             (function() {
                 var modalBox = {};
                 //modalBox.pad = document.getElementById("signature");
-                modalBox.modal = document.getElementById("myModal");
+                modalBox.modal = document.getElementById("signature-pad");
                 modalBox.triggerBtn = document.getElementById("triggerBtn");
                 modalBox.closeBtn = document.getElementById("closeBtn");
                 modalBox.modal.style.display = "none";
@@ -221,16 +219,16 @@
                     //this.pad.style.display = "block";
                 }
 
-                modalBox.outsideClick = function() {
-                    var modal = this.modal;
-                    var pad = this.pad;
-                    window.onclick = function(event) {
-                        if (event.target == modal) {
-                            modal.style.display = "none";
-                            //pad.style.display = "block";
-                        }
-                    }
-                }
+                // modalBox.outsideClick = function() {
+                //     var modal = this.modal;
+                //     var pad = this.pad;
+                //     window.onclick = function(event) {
+                //         if (event.target == modal) {
+                //             modal.style.display = "none";
+                //             //pad.style.display = "block";
+                //         }
+                //     }
+                // }
 
                 modalBox.init = function() {
                     var that = this;
@@ -238,13 +236,14 @@
                         that.show();
                     }
                     this.closeBtn.onclick = function() {
-                        that.close();
-                    }
-                    this.outsideClick();
+                            that.close();
+                        }
+                        // this.outsideClick();
                 }
                 modalBox.init();
 
             })();
+
 
 
             function matting() {
