@@ -155,7 +155,8 @@
         </div>
         <!-- <footer>write by Young @2018</footer> -->
         <!-- <div id="signature" class="signature"> -->
-        <div id="myModal" class="modal">
+        <div id="center" class="window">
+            <div id="title" class="title"><img src="img/删除.svg" alt="关闭" />签名</div>
             <div id="signature-pad" class="signature-pad">
                 <div class="signature-pad--body">
                     <canvas id="canvas"></canvas>
@@ -200,94 +201,50 @@
         <script src="js/returnTop.js"></script>
         <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
   <script src="luck/luck.js"></script>-->
-        <script>
-            (function() {
-                var modalBox = {};
-                //modalBox.pad = document.getElementById("signature");
-                modalBox.modal = document.getElementById("signature-pad");
-                modalBox.triggerBtn = document.getElementById("triggerBtn");
-                modalBox.closeBtn = document.getElementById("closeBtn");
-                modalBox.modal.style.display = "none";
-                modalBox.show = function() {
-                    console.log(this.modal);
-                    this.modal.style.display = "block";
-                    //this.pad.style.display = "none";
-                }
+        <script type="text/javascript" src="http://down.hovertree.com/jquery/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" language="javascript">
+            var modal = document.getElementById("center");
+            modal.style.display = "none";
+            $(document).ready(function() {
+                $("#triggerBtn").click(function() {
+                    popCenterWindow();
+                });
 
-                modalBox.close = function() {
-                    this.modal.style.display = "none";
-                    //this.pad.style.display = "block";
-                }
+            });
+            //获取窗口的高度
+            var windowHeight;
+            //获取窗口的宽度
+            var windowWidth;
+            //获取弹窗的宽度
+            var popWidth;
+            //获取弹窗高度
+            var popHeight;
 
-                // modalBox.outsideClick = function() {
-                //     var modal = this.modal;
-                //     var pad = this.pad;
-                //     window.onclick = function(event) {
-                //         if (event.target == modal) {
-                //             modal.style.display = "none";
-                //             //pad.style.display = "block";
-                //         }
-                //     }
-                // }
-
-                modalBox.init = function() {
-                    var that = this;
-                    this.triggerBtn.onclick = function() {
-                        that.show();
-                    }
-                    this.closeBtn.onclick = function() {
-                            that.close();
-                        }
-                        // this.outsideClick();
-                }
-                modalBox.init();
-
-            })();
-
-
-
-            function matting() {
-                var file = document.getElementById('file').files[0];
-                var mat = new Matting(file);
-                mat.createStream();
+            function init() {
+                windowHeight = $(window).height();
+                windowWidth = $(window).width();
+                popHeight = $(".window").height();
+                popWidth = $(".window").width();
             }
-            //截图为PDF
-            /*window.onload = function() {
-      var obj = createDraggableObject();
-      obj.init($("img"));
-      };
-      window.onload = function() {
-    var oDiv = document.getElementById('imgSignature');
-    oDiv.onmousedown = function(ev) {
-        var ev = ev || event; 
-        // 1、Event 对象代表事件的状态
-        // 2、ie6\7\8下获取不到ev
-
-        var disX = ev.clientX - this.offsetLeft;
-        var disY = ev.clientY - this.offsetTop;
-        // 获取鼠标点击时在div中的相对位置
-
-        if (oDiv.setCapture) {oDiv.setCapture();}
-        // 文字选中bug：ie下，设置全局捕获
-
-        document.onmousemove = function(ev) {
-            var ev = ev || event;
-            oDiv.style.left = ev.clientX - disX + 'px';
-            oDiv.style.top = ev.clientY - disY + 'px';
-        };
-        document.onmouseup = function() {
-            document.onmousemove = null;
-            // 获取当前鼠标位置，
-            // 减去与div的相对位置得到当前div应该被拖拽的位置
-
-            if (oDiv.releaseCapture) {oDiv.releaseCapture();}
-            // 文字选中bug：ie下，释放全局捕获
-        };
-        return false;
-        // 文字选中bug：标准下，阻止事件默认行为
-    };
-}*/
+            //关闭窗口的方法
+            function closeWindow() {
+                $(".title img").click(function() {
+                    $(this).parent().parent().hide("slow");
+                });
+            }
+            //定义弹出居中窗口的方法
+            function popCenterWindow() {
+                init();
+                //计算弹出窗口的左上角Y的偏移量
+                var popY = (windowHeight - popHeight) / 2;
+                var popX = (windowWidth - popWidth) / 2;
+                //alert('jihua.cnblogs.com');
+                //设定窗口的位置
+                $("#center").css("top", popY).css("left", popX).slideToggle("slow");
+                closeWindow();
+            }
         </script>
+
 </body>
 
 </html>

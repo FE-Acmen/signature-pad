@@ -1,63 +1,117 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Signature Pad demo</title>
-  <meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
+    <meta charset="utf-8">
+    <title>Signature Pad demo</title>
+    <meta name="description" content="Signature Pad - HTML5 canvas based smooth signature drawing using variable width spline interpolation.">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="stylesheet" href="css/signature-pad.css">
+    <link rel="stylesheet" href="css/signature-pad.css">
 
-  <!--[if IE]>
+    <!--[if IE]>
     <link rel="stylesheet" type="text/css" href="css/ie9.css">
   <![endif]-->
 
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-39365077-1']);
-    _gaq.push(['_trackPageview']);
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-39365077-1']);
+        _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </head>
+
 <body onselectstart="return false">
-  <!--<a id="github" style="position: absolute; top: 0; right: 0; border: 0" href="https://github.com/szimek/signature_pad">
+    <!--<a id="github" style="position: absolute; top: 0; right: 0; border: 0" href="https://github.com/szimek/signature_pad">
     <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Chat me on Google">
-  </a>--> 
-
-  <div id="signature-pad" class="signature-pad">
-    <div class="signature-pad--body">
-      <canvas></canvas>
+  </a>-->
+    <div>
+        <input type="button" value="居中窗口" id="btn_center" />
     </div>
-    <div class="signature-pad--footer">
-      <div class="description">Sign above</div>
+    <div class="window" id="center">
+        <div id="modal" class="modal">
+            <div id="signature-pad" class="signature-pad">
+                <div class="signature-pad--body">
+                    <canvas></canvas>
+                </div>
+                <div class="signature-pad--footer">
+                    <div class="description">Sign above</div>
 
-      <div class="signature-pad--actions">
-        <div>
-          <button type="button" class="button clear" data-action="clear">Clear</button>
-          <button type="button" class="button" data-action="change-color">Change color</button>
-          <button type="button" class="button" data-action="undo">Undo</button>
+                    <div class="signature-pad--actions">
+                        <div>
+                            <button type="button" class="button clear" data-action="clear">Clear</button>
+                            <button type="button" class="button" data-action="change-color">Change color</button>
+                            <button type="button" class="button" data-action="undo">Undo</button>
 
+                        </div>
+                        <div>
+                            <button type="button" id="closeBtn" class="close" data-action="submit">Submit</button>
+                            <button type="button" class="button save" data-action="save-png">Save as PNG</button>
+                            <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
+                            <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-          <button type="button" id="closeBtn"class="close" data-action="submit">Submit</button>
-          <button type="button" class="button save" data-action="save-png">Save as PNG</button>
-          <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
-          <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
-        </div>
-      </div>
     </div>
-  </div>
+    <script src="js/signature_pad.umd.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript" src="http://down.hovertree.com/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        var modal = document.getElementById("center");
+        modal.style.display = "none";
+        $(document).ready(function() {
+            $("#btn_center").click(function() {
+                popCenterWindow();
+            });
 
-  <script src="js/signature_pad.umd.js"></script>
-  <script src="js/app.js"></script>
+        });
+        //获取窗口的高度
+        var windowHeight;
+        //获取窗口的宽度
+        var windowWidth;
+        //获取弹窗的宽度
+        var popWidth;
+        //获取弹窗高度
+        var popHeight;
+
+        function init() {
+            windowHeight = $(window).height();
+            windowWidth = $(window).width();
+            popHeight = $(".window").height();
+            popWidth = $(".window").width();
+        }
+        //关闭窗口的方法
+        // function closeWindow() {
+        //     $(".title img").click(function() {
+        //         $(this).parent().parent().hide("slow");
+        //     });
+        // }
+        //定义弹出居中窗口的方法
+        function popCenterWindow() {
+            init();
+            //计算弹出窗口的左上角Y的偏移量
+            var popY = (windowHeight - popHeight) / 2;
+            var popX = (windowWidth - popWidth) / 2;
+            //alert('jihua.cnblogs.com');
+            //设定窗口的位置
+            $("#center").css("top", popY).css("left", popX).slideToggle("slow");
+            closeWindow();
+        }
+    </script>
 </body>
+
 </html>

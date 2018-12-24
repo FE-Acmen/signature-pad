@@ -33,15 +33,23 @@
     text-align: center;
 }
 
-.signature {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.5)
+.window {
+    width: 700px;
+    /* background-color: #d0def0; */
+    position: absolute;
+    padding: 2px;
+    margin: 5px;
+    /* display: none; */
+}
+
+.title {
+    padding: 2px;
+    color: #75c956;
+    font-size: 14px;
+}
+
+.title img {
+    float: right;
 }
 
 .modal {
@@ -73,9 +81,7 @@
 }
 
 .signature-pad {
-    position: absolute;
-    left: 330px;
-    top: 100px;
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -84,12 +90,8 @@
     -ms-flex-direction: column;
     flex-direction: column;
     font-size: 10px;
-    width: 100%;
-    height: 100%;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    width: 680px;
+    height: 400px;
     max-width: 700px;
     max-height: 460px;
     border: 1px solid #e8e8e8;
