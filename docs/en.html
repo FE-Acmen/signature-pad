@@ -3,24 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" Content="text/html; charset=UTF-8">
 
-<head >
+<head>
     <title>图片缩放和固定div层拖动</title>
     <style type="text/css">
-      #picDiv
-        {
-        margin:8px 8px 4px 0;
-        border:1px solid #666666;
-        padding:0;
-        width:120px;
-        height:120px;
-        float:left;
-        overflow:hidden;
-        position:relative;
-        cursor:move;
+        #picDiv {
+            margin: 8px 8px 4px 0;
+            border: 1px solid #666666;
+            padding: 0;
+            width: 120px;
+            height: 120px;
+            float: left;
+            overflow: hidden;
+            position: relative;
+            cursor: move;
         }
-
-     .dragAble
-        {
+        
+        .dragAble {
             position: absolute;
             cursor: move;
         }
@@ -33,9 +31,8 @@
             if (args) {
                 oImg.width = oImg.width * 1.2;
                 oImg.height = oImg.height * 1.2;
-               // oImg.style.zoom = parseInt(oImg.style.zoom) + (args ? +20 : -20) + '%';
-            }
-            else {
+                // oImg.style.zoom = parseInt(oImg.style.zoom) + (args ? +20 : -20) + '%';
+            } else {
                 oImg.width = oImg.width / 1.2;
                 oImg.height = oImg.height / 1.2;
             }
@@ -44,31 +41,29 @@
 
 
         //获取div的四个顶点坐标
-           function getDivPosition()
-           {
-           var odiv=document.getElementById('picDiv');
-         //  alert(odiv.getBoundingClientRect().left);
-         // alert(odiv.getBoundingClientRect().top);
-                   
-           var xLeft,xRigh,yTop,yBottom;
-           return {
-                xLeft:odiv.getBoundingClientRect().left,
-                xRigh:odiv.getBoundingClientRect().left+130, 
-                yTop:odiv.getBoundingClientRect().top,
-                yBottom:odiv.getBoundingClientRect().top+130
-                };
-           }
+        function getDivPosition() {
+            var odiv = document.getElementById('picDiv');
+            //  alert(odiv.getBoundingClientRect().left);
+            // alert(odiv.getBoundingClientRect().top);
 
-         //获取鼠标坐标
-           function mousePos(e)
-           {
-                var x,y;
-                var e = e||window.event;
-                return {
-                x:e.clientX+document.body.scrollLeft+document.documentElement.scrollLeft,
-                y:e.clientY+document.body.scrollTop+document.documentElement.scrollTop
-                };
+            var xLeft, xRigh, yTop, yBottom;
+            return {
+                xLeft: odiv.getBoundingClientRect().left,
+                xRigh: odiv.getBoundingClientRect().left + 130,
+                yTop: odiv.getBoundingClientRect().top,
+                yBottom: odiv.getBoundingClientRect().top + 130
             };
+        }
+
+        //获取鼠标坐标
+        function mousePos(e) {
+            var x, y;
+            var e = e || window.event;
+            return {
+                x: e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft,
+                y: e.clientY + document.body.scrollTop + document.documentElement.scrollTop
+            };
+        };
 
         //在固定div层拖动图片
         var ie = document.all;
@@ -77,20 +72,19 @@
         var y, x;
         var oDragObj;
 
-        
+
         //鼠标移动
-        function moveMouse(e) {     
-                //鼠标的坐标
-                mousePos(e).x   ;
-                mousePos(e).y  ;
-                //div的四个顶点坐标
-                getDivPosition().xLeft
-                getDivPosition().xRigh
-                getDivPosition().yTop
-                getDivPosition().yBottom
-                
-            if(isdrag && mousePos(e).x > getDivPosition().xLeft &&  mousePos(e).x < getDivPosition().xRigh  &&  mousePos(e).y >getDivPosition().yTop && mousePos(e).y< getDivPosition().yBottom )
-            {
+        function moveMouse(e) {
+            //鼠标的坐标
+            mousePos(e).x;
+            mousePos(e).y;
+            //div的四个顶点坐标
+            getDivPosition().xLeft
+            getDivPosition().xRigh
+            getDivPosition().yTop
+            getDivPosition().yBottom
+
+            if (isdrag && mousePos(e).x > getDivPosition().xLeft && mousePos(e).x < getDivPosition().xRigh && mousePos(e).y > getDivPosition().yTop && mousePos(e).y < getDivPosition().yBottom) {
                 oDragObj.style.top = (nn6 ? nTY + e.clientY - y : nTY + event.clientY - y) + "px";
                 oDragObj.style.left = (nn6 ? nTX + e.clientX - x : nTX + event.clientX - x) + "px";
                 return false;
@@ -117,18 +111,19 @@
         }
         document.onmousedown = initDrag;
         document.onmouseup = new Function("isdrag=false");
-
-     </script>
+    </script>
 
 </head>
+
 <body>
-    <div id="picDiv" >
-        <img id="pic"  class="dragAble" alt="头像" src="img/02.png" />
+    <div id="picDiv">
+        <img id="pic" class="dragAble" alt="头像" src="img/02.png" />
         <br />
     </div>
 
-     <input id="btn1" type="button" value="放大" onclick="ImageChange(true)" />
-     <input id="btn2" type="button" value="缩小" onclick="ImageChange(false)" />
+    <input id="btn1" type="button" value="放大" onclick="ImageChange(true)" />
+    <input id="btn2" type="button" value="缩小" onclick="ImageChange(false)" />
     <!--  <input id="btn3" type="button" value="div的坐标" onclick="getDivPosition()" />  -->
 </body>
+
 </html>

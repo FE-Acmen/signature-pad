@@ -39,22 +39,23 @@
 
 #imgDiv {
     margin: 0 auto;
-    width: 600px;
+    width: 790px;
     min-height: 800px;
     border: 1px solid #95d16d;
     border-radius: 10px;
     text-align: center;
+    right: 50px;
 }
 
 canvas {
-    width: 600px;
+    width: 790px;
     border-radius: 0;
     border: 0px solid #95d16d;
     margin: 0px;
 }
 
 #screen {
-    width: 600px;
+    width: 790px;
     min-height: 800px;
     margin: 0 auto;
 }

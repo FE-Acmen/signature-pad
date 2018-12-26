@@ -71,7 +71,7 @@ downPdf.onclick = function() {
                 var imgWidth = 595.28;
                 var imgHeight = 595.28 / contentWidth * contentHeight;
 
-                var pageData = canvas.toDataURL('image/jpeg', 1.0);
+                var pageData = canvas.toDataURL('image/jpeg', 0.95);
 
                 var pdf = new jsPDF('', 'pt', 'a4');
                 //有两个高度需要区分，一个是html页面的实际高度，和生成pdf的页面高度(841.89)

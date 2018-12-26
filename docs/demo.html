@@ -101,10 +101,10 @@
                             <a href="javascript:;" class="btn file">选择文件
                             <input id='pdf' type='file' accept="application/pdf">
                         </a>
-                            <button class="btn" id="downloadPdf">导出pdf</button>
+
 
                             <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
-
+                            <button class="btn" id="downloadPdf">导出pdf</button>
                         </div>
                 </div>
 
@@ -131,12 +131,12 @@
             </div>
             <img id="imgSignature" class="signature-img" src="" />
         </div>
-        <div class="signature-Div">
+        <!-- <div class="signature-Div">
             <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
             <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
             <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
             <br>
-        </div>
+        </div> -->
     </div>
 
     <!-- <a href="javascript:void(0);" id="Obtn" onclick="box()" title="回到顶部"></a>  -->
@@ -147,9 +147,12 @@
     <!-- <footer>write by Young @2018</footer> -->
     <!-- <div id="signature" class="signature"> -->
     <div id="center" class="window">
-        <div id="title" class="title">
-            <img src="img/删除.svg" alt="关闭" />签名</div>
+
         <div id="signature-pad" class="signature-pad">
+            <div id="title" class="title">
+                <img src="img/删除.svg" alt="关闭" />
+                <div class="move">Move</div>
+            </div>
             <div class="signature-pad--body">
                 <canvas id="canvas"></canvas>
             </div>
@@ -179,21 +182,20 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
     <script src="js/signature_pad.umd.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/downloadPdf.js"></script>
+    <!-- <script src="js/downloadPdf.js"></script> -->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/FileSaver.js"></script>
     <script src="js/pdf.js"></script>
     <script src="js/pdf.worker.js"></script>
     <script src="js/jquery-3.3.1.js"></script>
     <!-- <script src="dist/matting.js"></script> -->
-    <script src="js/mylib.js"></script>
+    <script src="js/pdfToimg.js"></script>
     <script src="js/drag.js"></script>
     <script src="js/html2canvas.js"></script>
     <script src="js/jsPdf.debug.js"></script>
     <script src="js/returnTop.js"></script>
-    <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
-  <script src="luck/luck.js"></script>-->
-    <script type="text/javascript" src="http://down.hovertree.com/jquery/jquery-1.7.2.min.js"></script>
+    <script src="luck/es6-promise.auto.js"></script>
+    <script src="js/html2pdf.bundle.js"></script>
     <script type="text/javascript" language="javascript">
         var modal = document.getElementById("center");
         modal.style.display = "none";
@@ -228,6 +230,37 @@
             var popX = (windowWidth - popWidth) / 2;
             $("#center").css("top", popY).css("left", popX).slideToggle("slow");
             closeWindow();
+        }
+        //Submit关闭窗口
+        function closeWindow() {
+            $(".close").click(function() {
+                $(".window").hide("slow");
+            });
+        }
+        var downPdf = document.getElementById("downloadPdf");
+        var element = document.getElementById('screen');
+        var opt = {
+            margin: [0, 0, 0, 0],
+            filename: 'myfile.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        };
+        downPdf.onclick = function() {
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+
+            // Old monolithic-style usage:
+            //html2pdf(element, opt);
         }
     </script>
 
