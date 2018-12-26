@@ -103,7 +103,7 @@
                         </a>
                             <button class="btn" id="downloadPdf">导出pdf</button>
 
-                            <button class="btn">合成</button>
+                            <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
 
                         </div>
                 </div>
@@ -124,126 +124,112 @@
                 </div>
             </div>
         </div>
-
-        <div id="picDiv" class="dragAble">
-            <div id="screen" style="background-color:#fff">
-                <div id="imgDiv">
-                </div>
-                <img id="imgSignature" class="signature-img" src="" />
+    </div>
+    <div id="picDiv" class="dragAble">
+        <div id="screen" style="background-color:#fff">
+            <div id="imgDiv">
             </div>
-            <div class="signature-Div">
-                <input type="file" id="file">
-                <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
-                <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
-                <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
-                <br>
-
-
-                <!-- <canvas id="mycanvas" width="200px" height="100px" style="position: absolute"></canvas> -->
-                <!-- <div id="div1"></div> -->
-            </div>
+            <img id="imgSignature" class="signature-img" src="" />
         </div>
-
-        <!-- <a href="javascript:void(0);" id="Obtn" onclick="box()" title="回到顶部"></a>  -->
-        <!--截图导出PDF-->
-        <div id="signature" class="signature-layout" style="background-color:#fff">
-            <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
+        <div class="signature-Div">
+            <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
+            <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
+            <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
             <br>
         </div>
-        <div id="Obox" class="Obox" title="返回顶部">
-            <div class="Obox-in"></div>
-        </div>
-        <!-- <footer>write by Young @2018</footer> -->
-        <!-- <div id="signature" class="signature"> -->
-        <div id="center" class="window">
-            <div id="title" class="title"><img src="img/删除.svg" alt="关闭" />签名</div>
-            <div id="signature-pad" class="signature-pad">
-                <div class="signature-pad--body">
-                    <canvas id="canvas"></canvas>
-                </div>
-                <div class="signature-pad--footer">
-                    <div class="description">Sign above</div>
+    </div>
 
-                    <div class="signature-pad--actions">
-                        <div>
-                            <button type="button" class="button clear" data-action="clear">Clear</button>
-                            <button type="button" class="button" data-action="change-color">Change color</button>
-                            <button type="button" class="button" data-action="undo">Undo</button>
+    <!-- <a href="javascript:void(0);" id="Obtn" onclick="box()" title="回到顶部"></a>  -->
+    <!--截图导出PDF-->
+    <div id="Obox" class="Obox" title="返回顶部">
+        <div class="Obox-in"></div>
+    </div>
+    <!-- <footer>write by Young @2018</footer> -->
+    <!-- <div id="signature" class="signature"> -->
+    <div id="center" class="window">
+        <div id="title" class="title">
+            <img src="img/删除.svg" alt="关闭" />签名</div>
+        <div id="signature-pad" class="signature-pad">
+            <div class="signature-pad--body">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="signature-pad--footer">
+                <div class="description">Sign above</div>
 
-                        </div>
-                        <div>
-                            <button type="button" id="closeBtn" class="close" data-action="submit">Submit</button>
-                            <button type="button" class="button save" data-action="save-png">Save as PNG</button>
-                            <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
-                            <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
-                        </div>
+                <div class="signature-pad--actions">
+                    <div>
+                        <button type="button" class="button clear" data-action="clear">Clear</button>
+                        <button type="button" class="button" data-action="change-color">Change color</button>
+                        <button type="button" class="button" data-action="undo">Undo</button>
+
+                    </div>
+                    <div>
+                        <button type="button" id="closeBtn" class="close" data-action="submit">Submit</button>
+                        <button type="button" class="button save" data-action="save-png">Save as PNG</button>
+                        <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
+                        <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-        <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
-        <!-- <script src="https://cdn.bootcss.com/jspdf/1.4.1/jspdf.min.js"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
-        <script src="js/signature_pad.umd.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/downloadPdf.js"></script>
-        <script src="js/jquery-2.1.4.min.js"></script>
-        <script src="js/FileSaver.js"></script>
-        <script src="js/pdf.js"></script>
-        <script src="js/pdf.worker.js"></script>
-        <script src="js/jquery-3.3.1.js"></script>
-        <script src="dist/matting.js"></script>
-        <script src="js/mylib.js"></script>
-        <script src="js/drag.js"></script>
-        <script src="js/html2canvas.js"></script>
-        <script src="js/jsPdf.debug.js"></script>
-        <script src="js/returnTop.js"></script>
-        <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
+    </div>
+    <!-- </div> -->
+    <script src="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/jspdf/1.4.1/jspdf.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
+    <script src="js/signature_pad.umd.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/downloadPdf.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/FileSaver.js"></script>
+    <script src="js/pdf.js"></script>
+    <script src="js/pdf.worker.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
+    <!-- <script src="dist/matting.js"></script> -->
+    <script src="js/mylib.js"></script>
+    <script src="js/drag.js"></script>
+    <script src="js/html2canvas.js"></script>
+    <script src="js/jsPdf.debug.js"></script>
+    <script src="js/returnTop.js"></script>
+    <!--<script src="http://cdn.loveqiao.com/jquery.js"></script> 
   <script src="luck/luck.js"></script>-->
-        <script type="text/javascript" src="http://down.hovertree.com/jquery/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" language="javascript">
-            var modal = document.getElementById("center");
-            modal.style.display = "none";
-            $(document).ready(function() {
-                $("#triggerBtn").click(function() {
-                    popCenterWindow();
-                });
-
+    <script type="text/javascript" src="http://down.hovertree.com/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        var modal = document.getElementById("center");
+        modal.style.display = "none";
+        $(document).ready(function() {
+            $("#triggerBtn").click(function() {
+                popCenterWindow();
             });
-            //获取窗口的高度
-            var windowHeight;
-            //获取窗口的宽度
-            var windowWidth;
-            //获取弹窗的宽度
-            var popWidth;
-            //获取弹窗高度
-            var popHeight;
 
-            function init() {
-                windowHeight = $(window).height();
-                windowWidth = $(window).width();
-                popHeight = $(".window").height();
-                popWidth = $(".window").width();
-            }
-            //关闭窗口的方法
-            function closeWindow() {
-                $(".title img").click(function() {
-                    $(this).parent().parent().hide("slow");
-                });
-            }
-            //定义弹出居中窗口的方法
-            function popCenterWindow() {
-                init();
-                //计算弹出窗口的左上角Y的偏移量
-                var popY = (windowHeight - popHeight) / 2;
-                var popX = (windowWidth - popWidth) / 2;
-                //alert('jihua.cnblogs.com');
-                //设定窗口的位置
-                $("#center").css("top", popY).css("left", popX).slideToggle("slow");
-                closeWindow();
-            }
-        </script>
+        });
+        var windowHeight;
+        var windowWidth;
+        var popWidth;
+        var popHeight;
+
+        function init() {
+            windowHeight = $(window).height();
+            windowWidth = $(window).width();
+            popHeight = $(".window").height();
+            popWidth = $(".window").width();
+
+        }
+        //关闭窗口
+        function closeWindow() {
+            $(".title img").click(function() {
+                $(this).parent().parent().hide("slow");
+            });
+        }
+        //弹出居中窗口
+        function popCenterWindow() {
+            init();
+            var popY = (windowHeight - popHeight) / 2;
+            var popX = (windowWidth - popWidth) / 2;
+            $("#center").css("top", popY).css("left", popX).slideToggle("slow");
+            closeWindow();
+        }
+    </script>
 
 </body>
 

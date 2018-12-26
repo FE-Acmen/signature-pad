@@ -129,14 +129,14 @@ Drag.prototype = {
 
 // 调用================================================
 window.onload = function() {
-    // // div1
-    // var d1 = new Drag({ 
-    //     id : 'div1', // 传入对象
-    //     toDown : function(obj){
+    // div1
+    // var d1 = new Drag({
+    //     id: 'center', // 传入对象
+    //     toDown: function(obj) {
     //         obj.style.opacity = '0.6';
-    //         obj.innerHTML = parseInt(obj.innerHTML) +1;
+
     //     },
-    //     toUp : function(obj){
+    //     toUp: function(obj) {
     //         obj.style.opacity = '1';
     //     }
     // });

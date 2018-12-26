@@ -103,10 +103,10 @@ submitButton.addEventListener("click", function(event) {
     if (signaturePad.isEmpty()) {
         alert("Please provide a signature first.");
     } else {
-        var canvas = document.getElementById("canvas");
+        // var canvas = document.getElementById("canvas");
         var image = document.getElementById("imgSignature");
         // var image = document.createElement("img");
-        image.src = canvas.toDataURL("image/jpeg", 0.7);
+        image.src = signaturePad.toDataURL("image/svg+xml");
         // document.getElementById("mycanvas").appendChild(image);
     }
 });

@@ -4,20 +4,14 @@
     box-sizing: border-box;
 }
 
-.signature-layout {
-    border-bottom: 0px solid #CCC;
-    text-align: center;
-    overflow: auto;
-    height: 100%;
-    width: 100%;
-    display: block;
-}
-
 .signature-img {
     cursor: move;
     max-height: 100px;
     max-width: 200px;
     position: absolute;
+    /* float: right;
+    top: 400px;
+    right: 50px; */
     z-index: -1;
     height: auto;
     background-color: transparent;
@@ -36,7 +30,7 @@
 .window {
     width: 700px;
     /* background-color: #d0def0; */
-    position: absolute;
+    position: fixed;
     padding: 2px;
     margin: 5px;
     /* display: none; */
