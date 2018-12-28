@@ -39,18 +39,6 @@
         .Obox:hover .box-in {
             visibility: hidden;
         }
-        /*.Obox:before{
-    background: #a1da88;
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    content:'回到顶部';
-    width: 40px;
-    color:peru;
-    font-weight:bold;
-
-  }*/
         
         .Obox-in {
             visibility: visible;
@@ -95,49 +83,45 @@
                     </div>
                 </a>
                 <div class="name">上传PDF</div>
-                <div class="job">文档大小
-                    < 10Mb</div>
-                        <div class="actions">
-                            <a href="javascript:;" class="btn file">选择文件
-                            <input id='pdf' type='file' accept="application/pdf">
+                <div class="job">文档大小小于10Mb </div>
+                <div class="actions">
+                    <a href="javascript:;" class="btn file">选择文件
+                            <input id='pdf' type='file' value="选择文件" accept="application/pdf">
                         </a>
 
 
-                            <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
-                            <button class="btn" id="downloadPdf">导出pdf</button>
-                        </div>
+                    <input type="button" class="btn" id="triggerBtn" aria-readonly="true" value="签名" />
+                    <button class="btn" id="downloadPdf">导出pdf</button>
                 </div>
+            </div>
 
-                <div class="stats">
-                    <div class="box">
-                        <span class="value">名称</span>
-                        <span class="parameter" id="pdfName"></span>
-                    </div>
-                    <div class="box">
-                        <span class="value">大小</span>
-                        <span class="parameter" id="sizeText"></span>
-                    </div>
-                    <div class="box">
-                        <span class="value">页数</span>
-                        <span class="parameter" id="pagesText"></span>
-                    </div>
+            <div class="stats">
+                <div class="box">
+                    <span class="value">名称</span>
+                    <span class="parameter" id="pdfName"></span>
+                </div>
+                <div class="box">
+                    <span class="value">大小</span>
+                    <span class="parameter" id="sizeText"></span>
+                </div>
+                <div class="box">
+                    <span class="value">页数</span>
+                    <span class="parameter" id="pagesText"></span>
                 </div>
             </div>
         </div>
     </div>
-    <div id="picDiv" class="dragAble">
-        <div id="screen" style="background-color:#fff">
-            <div id="imgDiv">
-            </div>
-            <img id="imgSignature" class="signature-img" src="" />
+    <div id="screen" style="background-color:#fff">
+        <div id="imgDiv">
         </div>
-        <!-- <div class="signature-Div">
+        <img id="imgSignature" class="signature-img" src="" />
+    </div>
+    <!-- <div class="signature-Div">
             <input id="btn1" class="btn" type="button" value="放大" onclick="ImageChange(true)" />
             <input id="btn2" class="btn" type="button" value="缩小" onclick="ImageChange(false)" />
             <input id="btn3" class="btn" type="button" value="去底色" onclick="matting()" />
             <br>
         </div> -->
-    </div>
 
     <!-- <a href="javascript:void(0);" id="Obtn" onclick="box()" title="回到顶部"></a>  -->
     <!--截图导出PDF-->
@@ -237,6 +221,7 @@
                 $(".window").hide("slow");
             });
         }
+        //获取需要截取的html元素html2pdf
         var downPdf = document.getElementById("downloadPdf");
         var element = document.getElementById('screen');
         var opt = {

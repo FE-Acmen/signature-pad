@@ -45,6 +45,9 @@
     border-radius: 10px;
     text-align: center;
     right: 50px;
+    top: 0;
+    right: 200px;
+    position: absolute;
 }
 
 canvas {
